@@ -18,7 +18,7 @@ BotManager.Plugin is a plugin for [ArchiSteamFarm](https://github.com/JustArchiN
 
 ### Installation
 
-1. Download the latest release from [Releases](https://github.com/jccan/BotManager.Plugin/releases)
+1. Download the latest release from [Releases](https://github.com/candelacode/BotManagerPlugin/releases)
 2. Extract the contents to ASF's `plugins/BotManager.Plugin/` directory
 3. Restart ASF
 
@@ -106,7 +106,7 @@ curl "http://localhost:1242/Api/Bot/Status"
 
 1. Clone the repository:
    ```bash
-   git clone --recursive https://github.com/jccan/BotManager.Plugin.git
+   git clone --recursive https://github.com/candelacode/BotManagerPlugin.git
    cd BotManager.Plugin
    ```
 
