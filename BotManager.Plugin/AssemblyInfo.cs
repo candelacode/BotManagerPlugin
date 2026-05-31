@@ -2,4 +2,4 @@ using System;
 using System.Runtime.CompilerServices;
 
 [assembly: CLSCompliant(false)]
-[assembly: InternalsVisibleTo("MyAwesomePlugin.Tests")]
+[assembly: InternalsVisibleTo("BotManager.Plugin.Tests")]
