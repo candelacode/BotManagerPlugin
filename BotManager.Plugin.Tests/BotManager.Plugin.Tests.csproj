@@ -7,6 +7,11 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Suppress CA1707: Underscores in test method names are standard xUnit convention -->
+    <NoWarn>$(NoWarn);CA1707</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
@@ -16,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ASF.BotManager\ASF.BotManager.csproj" />
+    <ProjectReference Include="..\BotManager.Plugin\BotManager.Plugin.csproj" />
     <ProjectReference Include="..\ArchiSteamFarm\ArchiSteamFarm\ArchiSteamFarm.csproj" />
   </ItemGroup>
 

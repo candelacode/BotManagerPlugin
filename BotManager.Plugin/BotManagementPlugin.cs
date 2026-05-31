@@ -8,7 +8,7 @@ using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Plugins.Interfaces;
 using JetBrains.Annotations;
 
-namespace BotManager.Plugin;
+namespace BotManagerPlugin;
 
 [Export(typeof(IPlugin))]
 [UsedImplicitly]

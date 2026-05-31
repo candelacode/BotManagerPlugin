@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BotManager.Plugin;
+using BotManagerPlugin;
 using Xunit;
 
-namespace ASF.BotManager.Tests;
+namespace BotManager.Plugin.Tests;
 
 public class BotControllerTests {
 	[Fact]

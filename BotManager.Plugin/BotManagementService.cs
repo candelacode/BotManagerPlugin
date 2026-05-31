@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ArchiSteamFarm.Core;
 
-namespace BotManager.Plugin;
+namespace BotManagerPlugin;
 
 public sealed class BotManagementService {
 	private static readonly HashSet<string> IgnoredFiles = new(StringComparer.OrdinalIgnoreCase) {
@@ -24,7 +24,7 @@ public sealed class BotManagementService {
 		configDirectory = Path.Combine(Directory.GetCurrentDirectory(), "config");
 	}
 
-	public Task EnableBotAsync(string botName, CancellationToken cancellationToken = default) {
+	public async Task EnableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
 		if (string.IsNullOrWhiteSpace(botName)) {
@@ -35,17 +35,16 @@ public sealed class BotManagementService {
 
 		if (zipPath == null) {
 			// Bot already enabled or not found
-			return Task.CompletedTask;
+			return;
 		}
 
-		ZipFile.ExtractToDirectory(zipPath, configDirectory, true);
+		await ZipFile.ExtractToDirectoryAsync(zipPath, configDirectory, true, cancellationToken).ConfigureAwait(false);
 		File.Delete(zipPath);
 
 		ASF.ArchiLogger.LogGenericInfo($"Bot '{botName}' enabled.");
-		return Task.CompletedTask;
 	}
 
-	public Task DisableBotAsync(string botName, CancellationToken cancellationToken = default) {
+	public async Task DisableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
 		if (string.IsNullOrWhiteSpace(botName)) {
@@ -60,18 +59,17 @@ public sealed class BotManagementService {
 
 		if (files.Length == 0) {
 			// Bot already disabled or not found
-			return Task.CompletedTask;
+			return;
 		}
 
 		if (File.Exists(zipPath)) {
 			File.Delete(zipPath);
 		}
 
-		using (var archive = ZipFile.Open(zipPath, ZipArchiveMode.Create)) {
-			foreach (var file in files) {
-				cancellationToken.ThrowIfCancellationRequested();
-				archive.CreateEntryFromFile(file, Path.GetFileName(file));
-			}
+		using var archive = await ZipFile.OpenAsync(zipPath, ZipArchiveMode.Create, cancellationToken).ConfigureAwait(false);
+		foreach (var file in files) {
+			cancellationToken.ThrowIfCancellationRequested();
+			await archive.CreateEntryFromFileAsync(file, Path.GetFileName(file), CompressionLevel.Optimal, cancellationToken).ConfigureAwait(false);
 		}
 
 		foreach (var file in files) {
@@ -80,7 +78,6 @@ public sealed class BotManagementService {
 		}
 
 		ASF.ArchiLogger.LogGenericInfo($"Bot '{botName}' disabled.");
-		return Task.CompletedTask;
 	}
 
 	public Task<IReadOnlyList<string>> GetAllBotsStatusAsync(CancellationToken cancellationToken = default) {

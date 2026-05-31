@@ -7,7 +7,7 @@ using ArchiSteamFarm.IPC.Controllers.Api;
 using ArchiSteamFarm.IPC.Responses;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BotManager.Plugin;
+namespace BotManagerPlugin;
 
 [Route("Api/Bot")]
 public sealed class BotController : ArchiController {

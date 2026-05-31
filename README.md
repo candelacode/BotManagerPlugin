@@ -1,10 +1,10 @@
-# ASF.BotManager
+# BotManager.Plugin
 
 ---
 
 ## Description
 
-ASF.BotManager is a plugin for [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) that provides REST API endpoints for managing bots. It allows you to enable, disable, and check the status of your ASF bots via HTTP API calls.
+BotManager.Plugin is a plugin for [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) that provides REST API endpoints for managing bots. It allows you to enable, disable, and check the status of your ASF bots via HTTP API calls.
 
 ### Features
 
@@ -18,8 +18,8 @@ ASF.BotManager is a plugin for [ArchiSteamFarm](https://github.com/JustArchiNET/
 
 ### Installation
 
-1. Download the latest release from [Releases](https://github.com/jccan/ASF.BotManager/releases)
-2. Extract the contents to ASF's `plugins/ASF.BotManager/` directory
+1. Download the latest release from [Releases](https://github.com/jccan/BotManager.Plugin/releases)
+2. Extract the contents to ASF's `plugins/BotManager.Plugin/` directory
 3. Restart ASF
 
 ### API Endpoints
@@ -106,8 +106,8 @@ curl "http://localhost:1242/Api/Bot/Status"
 
 1. Clone the repository:
    ```bash
-   git clone --recursive https://github.com/jccan/ASF.BotManager.git
-   cd ASF.BotManager
+   git clone --recursive https://github.com/jccan/BotManager.Plugin.git
+   cd BotManager.Plugin
    ```
 
 2. Build the plugin:
@@ -120,7 +120,7 @@ curl "http://localhost:1242/Api/Bot/Status"
    build.bat
    ```
 
-The compiled plugin will be in `ASF.BotManager/bin/Release/net10.0/ASF.BotManager.dll`.
+The compiled plugin will be in `BotManager.Plugin/bin/Release/net10.0/BotManager.Plugin.dll`.
 
 ---
 

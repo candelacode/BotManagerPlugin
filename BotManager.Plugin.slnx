@@ -4,11 +4,12 @@
 		<BuildType Name="DebugFast" />
 		<BuildType Name="Release" />
 	</Configurations>
+
 	<Project Path="ArchiSteamFarm/ArchiSteamFarm/ArchiSteamFarm.csproj" />
-	<Project Path="ASF.BotManager.Tests/ASF.BotManager.Tests.csproj">
+	<Project Path="BotManager.Plugin.Tests/BotManager.Plugin.Tests.csproj">
 		<BuildType Solution="DebugFast|*" Project="Debug" />
 	</Project>
-	<Project Path="ASF.BotManager/ASF.BotManager.csproj" Id="73abd69e-3e30-4e38-856b-66c5f68bc8ec">
+	<Project Path="BotManager.Plugin/BotManager.Plugin.csproj" Id="73abd69e-3e30-4e38-856b-66c5f68bc8ec">
 		<BuildType Solution="DebugFast|*" Project="Debug" />
 	</Project>
 </Solution>
