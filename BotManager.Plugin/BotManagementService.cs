@@ -126,6 +126,27 @@ public sealed class BotManagementService {
 		return Task.FromResult<IReadOnlyList<string>>(disabled.OrderBy(name => name, StringComparer.OrdinalIgnoreCase).ToList());
 	}
 
+	public Task<bool?> IsBotEnabledAsync(string botName, CancellationToken cancellationToken = default) {
+		cancellationToken.ThrowIfCancellationRequested();
+
+		if (string.IsNullOrWhiteSpace(botName) || !IsValidBotName(botName)) {
+			throw new ArgumentException("Bot name is required.", nameof(botName));
+		}
+
+		var (enabled, disabled) = GetBotStates();
+		enabled.ExceptWith(disabled);
+
+		if (enabled.Contains(botName)) {
+			return Task.FromResult<bool?>(true);
+		}
+
+		if (disabled.Contains(botName)) {
+			return Task.FromResult<bool?>(false);
+		}
+
+		return Task.FromResult<bool?>(null);
+	}
+
 	private static string? GetBotArchivePath(string configDirectory, string botName)
 		=> Directory.GetFiles(configDirectory, "*.zip")
 			.FirstOrDefault(file => HasExactBotName(file, botName));

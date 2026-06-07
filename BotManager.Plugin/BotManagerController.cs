@@ -49,6 +49,27 @@ public sealed class BotManagerController : ArchiController {
 		}
 	}
 
+	[HttpGet("IsEnabled/{botName}")]
+	[ProducesResponseType(typeof(GenericResponse<bool>), (int) HttpStatusCode.OK)]
+	[ProducesResponseType(typeof(GenericResponse), (int) HttpStatusCode.NotFound)]
+	public async Task<ActionResult<GenericResponse<bool>>> IsBotEnabled(string botName, CancellationToken cancellationToken = default) {
+		if (string.IsNullOrWhiteSpace(botName)) {
+			return BadRequest(new GenericResponse(false, "Bot name is required."));
+		}
+
+		try {
+			var result = await service.IsBotEnabledAsync(botName, cancellationToken).ConfigureAwait(false);
+
+			if (result is null) {
+				return NotFound(new GenericResponse(false, $"Bot '{botName}' not found."));
+			}
+
+			return Ok(new GenericResponse<bool>(result.Value));
+		} catch (Exception e) {
+			return StatusCode((int) HttpStatusCode.InternalServerError, new GenericResponse(false, e.Message));
+		}
+	}
+
 	[HttpGet("Status")]
 	[ProducesResponseType(typeof(GenericResponse<BotStatusResponse>), (int) HttpStatusCode.OK)]
 	public async Task<ActionResult<GenericResponse<BotStatusResponse>>> GetBotStatus(CancellationToken cancellationToken = default) {
