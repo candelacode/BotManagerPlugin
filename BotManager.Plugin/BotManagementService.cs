@@ -27,7 +27,7 @@ public sealed class BotManagementService {
 	public async Task EnableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
-		if (string.IsNullOrWhiteSpace(botName)) {
+		if (string.IsNullOrWhiteSpace(botName) || !IsValidBotName(botName)) {
 			throw new ArgumentException("Bot name is required.", nameof(botName));
 		}
 
@@ -46,7 +46,7 @@ public sealed class BotManagementService {
 	public async Task DisableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
-		if (string.IsNullOrWhiteSpace(botName)) {
+		if (string.IsNullOrWhiteSpace(botName) || !IsValidBotName(botName)) {
 			throw new ArgumentException("Bot name is required.", nameof(botName));
 		}
 
@@ -76,6 +76,22 @@ public sealed class BotManagementService {
 		}
 
 		ASF.ArchiLogger.LogGenericInfo($"Bot '{botName}' disabled.");
+	}
+
+	private static bool IsValidBotName(string botName) {
+		if (botName.StartsWith('.')) {
+			return false;
+		}
+
+		if (botName.Equals("ASF", StringComparison.OrdinalIgnoreCase)) {
+			return false;
+		}
+
+		try {
+			return Path.GetRelativePath(".", botName) == botName;
+		} catch (ArgumentException) {
+			return false;
+		}
 	}
 
 	public Task<IReadOnlyList<string>> GetAllBotsStatusAsync(CancellationToken cancellationToken = default) {
