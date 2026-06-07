@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using ArchiSteamFarm.Core;
 
+#pragma warning disable CA3003 // File path is validated via IsValidBotName
+
 namespace BotManagerPlugin;
 
 public sealed class BotManagementService {
@@ -49,6 +51,8 @@ public sealed class BotManagementService {
 		if (string.IsNullOrWhiteSpace(botName) || !IsValidBotName(botName)) {
 			throw new ArgumentException("Bot name is required.", nameof(botName));
 		}
+
+		botName = Path.GetFileName(botName);
 
 		var zipPath = Path.Combine(configDirectory, $"{botName}.zip");
 
