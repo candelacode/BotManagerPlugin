@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BotManagerPlugin;
 
-[Route("Api/Bot")]
-public sealed class BotController : ArchiController {
+[Route("Api/BotManager")]
+public sealed class BotManagerController : ArchiController {
 	private readonly BotManagementService service;
 
-	public BotController() {
+	public BotManagerController() {
 		service = new BotManagementService();
 	}
 
