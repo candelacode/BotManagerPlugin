@@ -27,14 +27,13 @@ public sealed class BotManagementService {
 	public async Task EnableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
-		if (string.IsNullOrWhiteSpace(botName)) {
+		if (string.IsNullOrWhiteSpace(botName) || !ASF.IsValidBotName(botName)) {
 			throw new ArgumentException("Bot name is required.", nameof(botName));
 		}
 
 		var zipPath = GetBotArchivePath(configDirectory, botName);
 
 		if (zipPath == null) {
-			// Bot already enabled or not found
 			return;
 		}
 
@@ -47,7 +46,7 @@ public sealed class BotManagementService {
 	public async Task DisableBotAsync(string botName, CancellationToken cancellationToken = default) {
 		cancellationToken.ThrowIfCancellationRequested();
 
-		if (string.IsNullOrWhiteSpace(botName)) {
+		if (string.IsNullOrWhiteSpace(botName) || !ASF.IsValidBotName(botName)) {
 			throw new ArgumentException("Bot name is required.", nameof(botName));
 		}
 
@@ -58,7 +57,6 @@ public sealed class BotManagementService {
 			.ToArray();
 
 		if (files.Length == 0) {
-			// Bot already disabled or not found
 			return;
 		}
 
