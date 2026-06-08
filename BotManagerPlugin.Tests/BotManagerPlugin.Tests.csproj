@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BotManager.Plugin\BotManager.Plugin.csproj" />
+    <ProjectReference Include="..\BotManagerPlugin\BotManagerPlugin.csproj" />
     <ProjectReference Include="..\ArchiSteamFarm\ArchiSteamFarm\ArchiSteamFarm.csproj" />
   </ItemGroup>
 
