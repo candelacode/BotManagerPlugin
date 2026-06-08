@@ -8,13 +8,15 @@ using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Plugins.Interfaces;
 using JetBrains.Annotations;
 
-namespace BotManagerPlugin;
+namespace BotManager.Plugin;
 
 [Export(typeof(IPlugin))]
 [UsedImplicitly]
-public sealed class BotManagementPlugin : IASF {
+public sealed class BotManagementPlugin : IASF, IGitHubPluginUpdates {
 	[JsonInclude]
 	public string Name => nameof(BotManagementPlugin);
+
+	public string RepositoryName => "candelacode/BotManagerPlugin";
 
 	[JsonInclude]
 	public Version Version => typeof(BotManagementPlugin).Assembly.GetName().Version ?? throw new InvalidOperationException(nameof(Version));
